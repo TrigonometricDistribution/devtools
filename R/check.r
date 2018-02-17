@@ -44,7 +44,7 @@
 #'   rerun \code{\link{document}} prior to checking. Use \code{TRUE}
 #'   and \code{FALSE} to override this default.
 #' @param build_args Additional arguments passed to \code{R CMD build}
-#' @param check_dir This argument is ignored, and exists only for backwards
+#' @param check_dir the directory in which the package is checked
 #'   compatibility. \code{args = "--output=/foo/bar"} can be used to change the
 #'   check directory.
 #' @param ... Additional arguments passed on to \code{\link[pkgbuild]{build}()}.
@@ -63,7 +63,7 @@ check <- function(pkg = ".",
                   args = NULL,
                   env_vars = NULL,
                   quiet = FALSE,
-                  check_dir) {
+                  check_dir = tempdir()) {
   pkg <- as.package(pkg)
   withr::local_options(list(warn = 1))
 
@@ -110,7 +110,8 @@ check <- function(pkg = ".",
     manual = manual,
     args = args,
     env_vars = env_vars,
-    quiet = quiet
+    quiet = quiet,
+    check_dir = check_dir
   )
 }
 
@@ -136,11 +137,12 @@ check <- function(pkg = ".",
 check_built <- function(path = NULL, cran = TRUE,
                         check_version = FALSE, force_suggests = FALSE,
                         run_dont_test = FALSE, manual = FALSE, args = NULL,
-                        env_vars = NULL, quiet = FALSE) {
+                        env_vars = NULL,  check_dir = tempdir(), quiet = FALSE) {
 
   pkgname <- gsub("_.*?$", "", basename(path))
 
   args <- c("--timings", args)
+  args <- c(paste0("--output=", normalizePath(check_dir)), args)
   if (cran) {
     args <- c("--as-cran", args)
   }
@@ -181,7 +183,13 @@ check_env_vars <- function(cran = FALSE, check_version = FALSE,
                            force_suggests = TRUE, env_vars = character()) {
   c(
     aspell_env_var(),
-    "_R_CHECK_CRAN_INCOMING_" = as.character(check_version),
+    # Switch off expensive check for package version
+    # https://github.com/r-lib/devtools/issues/1271
+    if (getRversion() >= "3.4.0" && as.numeric(R.version[["svn rev"]]) >= 70944) {
+      c("_R_CHECK_CRAN_INCOMING_REMOTE_" = as.character(check_version))
+    } else {
+      c("_R_CHECK_CRAN_INCOMING_" = as.character(check_version))
+    },
     "_R_CHECK_FORCE_SUGGESTS_" = as.character(force_suggests),
     env_vars
   )

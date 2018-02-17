@@ -1,10 +1,11 @@
 # devtools
 
-[![Build Status](https://travis-ci.org/hadley/devtools.svg?branch=master)](https://travis-ci.org/hadley/devtools)
+[![Build Status](https://travis-ci.org/r-lib/devtools.svg?branch=master)](https://travis-ci.org/r-lib/devtools)
 [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/hadley/devtools?branch=master&svg=true)](https://ci.appveyor.com/project/hadley/devtools)
-[![Coverage Status](https://codecov.io/github/hadley/devtools/coverage.svg?branch=master)](https://codecov.io/github/hadley/devtools?branch=master)
+[![Coverage Status](https://codecov.io/github/r-lib/devtools/coverage.svg?branch=master)](https://codecov.io/github/r-lib/devtools?branch=master)
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/devtools)](https://cran.r-project.org/package=devtools)
 
+[![Join the chat at https://gitter.im/r-lib/devtools](https://badges.gitter.im/r-lib/devtools.svg)](https://gitter.im/r-lib/devtools?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 The aim of `devtools` is to make package development easier by providing R functions that simplify common tasks.
 
@@ -14,11 +15,11 @@ While package development in R can feel intimidating, `devtools` does every thin
 
 `devtools` is opinionated about package development. It requires that you use `roxygen2` for documentation and `testthat` for testing. Not everyone would agree with this approach, and they are by no means perfect. But they have evolved out of the experience of writing over 30 R packages.
 
-I'm always happy to hear about what doesn't work for you and where `devtools` gets in your way. Either send an email to the [rdevtools mailing list](http://groups.google.com/group/rdevtools) or file an [issue at the GitHub repository](http://github.com/hadley/devtools/issues).
+I'm always happy to hear about what doesn't work for you and where `devtools` gets in your way. Either send an email to the [rdevtools mailing list](http://groups.google.com/group/rdevtools) or file an [issue at the GitHub repository](http://github.com/r-lib/devtools/issues).
 
 ## Updating to the latest version of devtools
 
-You can track (and contribute to) the development of `devtools` at https://github.com/hadley/devtools. To install it:
+You can track (and contribute to) the development of `devtools` at https://github.com/r-lib/devtools. To install it:
 
 1. Install the release version of `devtools` from CRAN with `install.packages("devtools")`.
 
@@ -30,7 +31,7 @@ You can track (and contribute to) the development of `devtools` at https://githu
 3. Install the development version of devtools.
 
    ```R
-   devtools::install_github("hadley/devtools")
+   devtools::install_github("r-lib/devtools")
    ```
 
 ## Package development tools
